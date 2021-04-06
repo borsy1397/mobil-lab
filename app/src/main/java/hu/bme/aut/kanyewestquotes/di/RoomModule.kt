@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object RoomModule {
+
     @Singleton
     @Provides
     fun provideQuoteDb(@ApplicationContext context: Context): QuoteDatabase {

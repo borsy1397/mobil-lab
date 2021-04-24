@@ -29,8 +29,8 @@ class RandomQuoteActivity : AppCompatActivity() {
 
         subscribeObservers()
 
-        viewModel.setStateEvent(RandomQuoteStateEvent.GetRandomQuote)
-        //viewModel.setStateEvent(RandomQuoteStateEvent.AddFavouriteQuote(RandomQuote("favourite")))
+        //viewModel.setStateEvent(RandomQuoteStateEvent.GetRandomQuote)
+        viewModel.setStateEvent(RandomQuoteStateEvent.AddFavouriteQuote(RandomQuote("random")))
     }
 
     private fun subscribeObservers() {

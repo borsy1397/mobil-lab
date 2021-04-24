@@ -2,6 +2,7 @@ package hu.bme.aut.kanyewestquotes.repository
 
 import hu.bme.aut.kanyewestquotes.data.Quote
 import hu.bme.aut.kanyewestquotes.data.QuoteDao
+import hu.bme.aut.kanyewestquotes.model.FavouriteQuote
 import hu.bme.aut.kanyewestquotes.model.RandomQuote
 import hu.bme.aut.kanyewestquotes.network.QuotesApi
 import hu.bme.aut.kanyewestquotes.network.RandomQuoteDTO
@@ -35,20 +36,23 @@ class MainRepository constructor(private val quoteDao: QuoteDao, private val quo
         }
     }
 
-    suspend fun getFavouriteQuotes(): Flow<DataState<List<Quote>>> = flow {
+    suspend fun getFavouriteQuotes(): Flow<DataState<List<FavouriteQuote>>> = flow {
         emit(DataState.Loading)
         try {
-            emit(DataState.Success(quoteDao.getFavouriteQuotes()))
+            emit(
+                DataState.Success(
+                    quoteDao.getFavouriteQuotes().map { FavouriteQuote(it.id, it.quote) })
+            )
         } catch (e: Exception) {
             emit(DataState.Error(e))
         }
     }
 
-    suspend fun deleteFavouriteQuote(quote: Quote): Flow<DataState<List<Quote>>> = flow {
+    suspend fun deleteFavouriteQuote(quote: Quote): Flow<DataState<List<FavouriteQuote>>> = flow {
         try {
             quotesApi.deleteQuoteFromFavourite(quote.id)
             quoteDao.deleteById(quote.id)
-            emit(DataState.Success(quoteDao.getFavouriteQuotes()))
+            emit(DataState.Success(quoteDao.getFavouriteQuotes().map { FavouriteQuote(it.id, it.quote) }))
         } catch (e: Exception) {
             emit(DataState.Error(e))
         }

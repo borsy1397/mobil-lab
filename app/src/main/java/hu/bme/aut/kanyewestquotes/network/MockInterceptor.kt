@@ -21,7 +21,7 @@ class MockInterceptor : Interceptor {
                 val mockCreatedResponse = """
                 {"id":"${Random.nextLong(
                     1,
-                    1000
+                    10000
                 )}","quote":"${JSONObject(bodyString).get("quote")}"}
                 """
                 return chain.proceed(chain.request())

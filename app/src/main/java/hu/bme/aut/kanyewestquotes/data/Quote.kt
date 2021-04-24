@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "quotes")
 data class Quote(
-    @PrimaryKey(autoGenerate = true) var id: Long?,
+    @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "id") var id: Long,
     @ColumnInfo(name = "quote") var quote: String
 )

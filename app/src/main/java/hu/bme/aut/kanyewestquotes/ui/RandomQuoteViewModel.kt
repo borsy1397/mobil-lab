@@ -1,4 +1,4 @@
-package hu.bme.aut.kanyewestquotes
+package hu.bme.aut.kanyewestquotes.ui
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel

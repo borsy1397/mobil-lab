@@ -1,9 +1,10 @@
-package hu.bme.aut.kanyewestquotes
+package hu.bme.aut.kanyewestquotes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import hu.bme.aut.kanyewestquotes.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 

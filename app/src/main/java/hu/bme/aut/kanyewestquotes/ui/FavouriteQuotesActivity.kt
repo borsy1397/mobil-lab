@@ -2,6 +2,7 @@ package hu.bme.aut.kanyewestquotes.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -68,15 +69,16 @@ class FavouriteQuotesActivity : AppCompatActivity(), QuoteAdapter.Listener {
         viewModel.dataState.observe(this, Observer { dataState ->
             when (dataState) {
                 is DataState.Success<List<FavouriteQuote>> -> {
+                    displayProgressBar(false)
                     adapter.submitList(dataState.data)
                 }
 
                 is DataState.Error -> {
-
+                    displayProgressBar(false)
                 }
 
                 is DataState.Loading -> {
-
+                    displayProgressBar(true)
                 }
             }
         })
@@ -90,5 +92,9 @@ class FavouriteQuotesActivity : AppCompatActivity(), QuoteAdapter.Listener {
 
     override fun onDeleteClicked(quote: FavouriteQuote) {
         viewModel.setStateEvent(FavouriteStateEvent.DeleteFavouriteQuote(quote))
+    }
+
+    private fun displayProgressBar(isDisplayed: Boolean){
+        progress_bar.visibility = if(isDisplayed) View.VISIBLE else View.GONE
     }
 }

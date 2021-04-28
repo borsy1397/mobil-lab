@@ -2,6 +2,7 @@ package hu.bme.aut.kanyewestquotes.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -39,6 +40,10 @@ class RandomQuoteActivity : AppCompatActivity() {
         }
     }
 
+    private fun displayProgressBar(isDisplayed: Boolean){
+        progress_bar.visibility = if(isDisplayed) View.VISIBLE else View.GONE
+    }
+
     private fun setOnClickListeners() {
         bottom_navigation.selectedItemId = R.id.itemNewQuote
 
@@ -73,16 +78,17 @@ class RandomQuoteActivity : AppCompatActivity() {
         viewModel.dataState.observe(this, Observer { dataState ->
             when (dataState) {
                 is DataState.Success<RandomQuote> -> {
+                    displayProgressBar(false)
                     randomQuote = dataState.data
                     textView.text = "\"${randomQuote.quote}\""
                 }
 
                 is DataState.Error -> {
-
+                    displayProgressBar(false)
                 }
 
                 is DataState.Loading -> {
-
+                    displayProgressBar(true)
                 }
             }
         })

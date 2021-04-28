@@ -1,21 +1,20 @@
 package hu.bme.aut.kanyewestquotes.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.kanyewestquotes.R
 import hu.bme.aut.kanyewestquotes.model.FavouriteQuote
-import hu.bme.aut.kanyewestquotes.model.RandomQuote
 import hu.bme.aut.kanyewestquotes.ui.adapter.QuoteAdapter
 import hu.bme.aut.kanyewestquotes.utils.DataState
 import kotlinx.android.synthetic.main.activity_favourite_quotes.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class FavouriteQuotesActivity : AppCompatActivity(), QuoteAdapter.Listener {
 
@@ -28,9 +27,31 @@ class FavouriteQuotesActivity : AppCompatActivity(), QuoteAdapter.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favourite_quotes)
 
+        title = "Favourite quotes"
+
+
         adapter = QuoteAdapter()
         adapter.listener = this
         listQuotes.adapter = adapter
+
+        bottom_navigation.selectedItemId = R.id.itemFavourite
+
+        bottom_navigation.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.itemNewQuote -> {
+                    startActivity(Intent(this, RandomQuoteActivity::class.java))
+                    true
+                }
+                R.id.itemFavourite -> {
+                    true
+                }
+                R.id.itemInformation -> {
+                    startActivity(Intent(this, AboutActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
 
         subscribeObservers()
 
@@ -56,7 +77,9 @@ class FavouriteQuotesActivity : AppCompatActivity(), QuoteAdapter.Listener {
     }
 
     override fun onQuoteClicked(quote: FavouriteQuote) {
-        TODO("Not yet implemented")
+        val intent = Intent(this, RandomQuoteActivity::class.java)
+        intent.putExtra("quote", quote.quote)
+        startActivity(intent)
     }
 
     override fun onDeleteClicked(quote: FavouriteQuote) {

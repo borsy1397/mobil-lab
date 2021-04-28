@@ -40,6 +40,14 @@ constructor(private val mainRepository: MainRepository, private val savedStateHa
                         .launchIn(viewModelScope)
                 }
 
+                is RandomQuoteStateEvent.ShowFavouriteQuote -> {
+                    mainRepository.showFavourite(randomQuoteStateEvent.randomQuote)
+                        .onEach {dataState ->
+                            _dataState.value = dataState
+                        }
+                        .launchIn(viewModelScope)
+                }
+
                 RandomQuoteStateEvent.None -> {}
             }
         }
@@ -51,4 +59,5 @@ sealed class RandomQuoteStateEvent {
     object GetRandomQuote: RandomQuoteStateEvent()
     object None: RandomQuoteStateEvent()
     data class AddFavouriteQuote(val randomQuote: RandomQuote): RandomQuoteStateEvent()
+    data class ShowFavouriteQuote(val randomQuote: RandomQuote): RandomQuoteStateEvent()
 }

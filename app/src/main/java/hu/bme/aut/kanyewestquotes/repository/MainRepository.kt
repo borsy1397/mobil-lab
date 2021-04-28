@@ -36,6 +36,15 @@ class MainRepository constructor(private val quoteDao: QuoteDao, private val quo
         }
     }
 
+    suspend fun showFavourite(quote: RandomQuote): Flow<DataState<RandomQuote>> = flow {
+        emit(DataState.Loading)
+        try {
+            emit(DataState.Success(quote))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
     suspend fun getFavouriteQuotes(): Flow<DataState<List<FavouriteQuote>>> = flow {
         emit(DataState.Loading)
         try {

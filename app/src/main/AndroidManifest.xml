@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:name=".MyApplication"
         android:theme="@style/Theme.KanyeWestQuotes">
-        <activity android:name=".ui.FavouriteQuotesActivity"></activity>
+        <activity android:name=".ui.FavouriteQuotesActivity" />
+        <activity android:name=".ui.AboutActivity" />
         <activity android:name=".ui.RandomQuoteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

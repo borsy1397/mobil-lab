@@ -29,15 +29,25 @@ class FavouriteQuotesActivity : AppCompatActivity(), QuoteAdapter.Listener {
 
         title = "Favourite quotes"
 
+        initializeRecyclerView()
 
+        setOnClickListeners()
+        subscribeObservers()
+
+        viewModel.setStateEvent(FavouriteStateEvent.GetFavouriteQuotes)
+    }
+
+    private fun initializeRecyclerView() {
         adapter = QuoteAdapter()
         adapter.listener = this
         listQuotes.adapter = adapter
+    }
 
+    private fun setOnClickListeners() {
         bottom_navigation.selectedItemId = R.id.itemFavourite
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.itemNewQuote -> {
                     startActivity(Intent(this, RandomQuoteActivity::class.java))
                     true
@@ -52,10 +62,6 @@ class FavouriteQuotesActivity : AppCompatActivity(), QuoteAdapter.Listener {
                 else -> false
             }
         }
-
-        subscribeObservers()
-
-        viewModel.setStateEvent(FavouriteStateEvent.GetFavouriteQuotes)
     }
 
     private fun subscribeObservers() {

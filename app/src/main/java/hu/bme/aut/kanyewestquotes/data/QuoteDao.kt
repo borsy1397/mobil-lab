@@ -13,6 +13,9 @@ interface QuoteDao {
     @Query("SELECT * FROM quotes")
     suspend fun getFavouriteQuotes(): List<Quote>
 
+    @Query("SELECT * FROM quotes WHERE quote = :quote")
+    suspend fun getFavouriteQuotesByText(quote: String): List<Quote>
+
     @Query("DELETE FROM quotes WHERE id = :id")
     suspend fun deleteById(id: Long): Int
 }

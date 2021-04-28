@@ -4,7 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_main"
     tools:context=".ui.AboutActivity">
+
+    <ImageView
+        android:id="@+id/imageKanye"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/kanye"
+        android:contentDescription="Kanye West"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/textViewAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:textAllCaps="true"
+        android:text="Kanye Omari West (született: Atlanta, 1977. június 8. – ) huszonegyszeres Grammy-díjas amerikai rapper, lemezproducer, filmrendező és divattervező."
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageKanye" />
+
+    <TextView
+        android:id="@+id/textViewAbout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:textAllCaps="true"
+        android:text="Karrierje 1996-ban kezdődött, de igazán 2001-ben indult be, mikor nemcsak producerként tevékenykedett a szakmában, hanem rap tudását is bemutatta."
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAbout" />
+
+    <TextView
+        android:id="@+id/textViewAbout3"
+        android:layout_width="383dp"
+        android:layout_height="165dp"
+        android:layout_marginTop="12dp"
+        android:text="Hároméves korában szülei elváltak, édesanyja pedig magával vitte Kanyét Chicagóba, ahol először a helyi művészeti iskolába járt, majd később megpróbálkozott az egyetemmel is, ám onnan rossz jegyei miatt kirúgták. Ez az élménye több helyen is megjelenik zenei munkásságában."
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAbout2" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

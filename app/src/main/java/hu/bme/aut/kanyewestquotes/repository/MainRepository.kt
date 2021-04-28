@@ -28,8 +28,11 @@ class MainRepository constructor(private val quoteDao: QuoteDao, private val quo
         try {
             val quoteDto = RandomQuoteDTO(quote = quote.quote)
             val favouriteQuote = quotesApi.addQuoteToFavourites(quoteDto).body()
-            val toInsertQuote = Quote(id = favouriteQuote?.id!!, quote = favouriteQuote.quote!!)
-            quoteDao.insert(toInsertQuote)
+            val quoteList = quoteDao.getFavouriteQuotesByText(quote.quote)
+            if(quoteList.isEmpty()) {
+                val toInsertQuote = Quote(id = favouriteQuote?.id!!, quote = favouriteQuote.quote!!)
+                quoteDao.insert(toInsertQuote)
+            }
             emit(DataState.Success(quote))
         } catch (e: Exception) {
             emit(DataState.Error(e))

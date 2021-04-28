@@ -27,10 +27,23 @@ class RandomQuoteActivity : AppCompatActivity() {
 
         title = "Random quote"
 
+        subscribeObservers()
+        setOnClickListeners()
+
+        val quoteText = intent.getStringExtra("quote")
+        if (quoteText != null) {
+            randomQuote = RandomQuote(quoteText)
+            textView.text = "\"${quoteText}\""
+        } else {
+            viewModel.setStateEvent(RandomQuoteStateEvent.GetRandomQuote)
+        }
+    }
+
+    private fun setOnClickListeners() {
         bottom_navigation.selectedItemId = R.id.itemNewQuote
 
         bottom_navigation.setOnNavigationItemSelectedListener() { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.itemNewQuote -> {
                     true
                 }
@@ -46,33 +59,14 @@ class RandomQuoteActivity : AppCompatActivity() {
             }
         }
 
-        subscribeObservers()
 
+        btnNew.setOnClickListener {
+            viewModel.setStateEvent(RandomQuoteStateEvent.GetRandomQuote)
+        }
 
-//        if (intent.getStringExtra("quote") != null) {
-//
-//        } else {
-//            viewModel.setStateEvent(RandomQuoteStateEvent.AddFavouriteQuote(RandomQuote("random")))
-//        }
-
-        viewModel.setStateEvent(RandomQuoteStateEvent.GetRandomQuote)
-
-
-
-//        BottomNavigationView.OnNavigationItemSelectedListener { item ->
-//            when(item.itemId) {
-//                R.id.page_1 -> {
-//                    // Respond to navigation item 1 click
-//                    true
-//                }
-//                R.id.page_2 -> {
-//                    startActivity(Intent(this, FavouriteQuotesActivity::class.java))
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-        //viewModel.setStateEvent(RandomQuoteStateEvent.AddFavouriteQuote(RandomQuote("random")))
+        btnFavourite.setOnClickListener {
+            viewModel.setStateEvent(RandomQuoteStateEvent.AddFavouriteQuote(randomQuote))
+        }
     }
 
     private fun subscribeObservers() {
@@ -80,8 +74,7 @@ class RandomQuoteActivity : AppCompatActivity() {
             when (dataState) {
                 is DataState.Success<RandomQuote> -> {
                     randomQuote = dataState.data
-                    textView.text = randomQuote.quote
-                    //startActivity(Intent(this, FavouriteQuotesActivity::class.java))
+                    textView.text = "\"${randomQuote.quote}\""
                 }
 
                 is DataState.Error -> {
